@@ -1,5 +1,5 @@
 // const { default: app } = require("../config/firebase");
-const model = require("../model/model");
+const Model = require("../model/model");
 // const { initializeApp } = require("firebase/app")
 // const { getStorage,ref,getDownloadURL,uploadBytesResumable } = require('firebase/storage')
 
@@ -16,7 +16,7 @@ const model = require("../model/model");
 
 const GetRecords = async (req, res) => {
   try {
-    const records = await model.find();
+    const records = await Model.find();
     res.json(records);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -27,7 +27,7 @@ const GetRecords = async (req, res) => {
 
 const PostRecord = async (req, res) => {
   try {
-    const data = new model(req.body);
+    const data = new Model(req.body);
     await data.save();
     res.status(201).json({ message: "Data Created", Status: true, data });
   } catch (error) {
@@ -40,7 +40,7 @@ const PostRecord = async (req, res) => {
 const DeleteRecord = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await model.findByIdAndRemove(id);
+    const data = await Model.findByIdAndRemove(id);
     if (!data) {
       return res.status(404).json({ error: "Not found" });
     }
@@ -55,7 +55,7 @@ const DeleteRecord = async (req, res) => {
 const updateRecord = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await model.findByIdAndUpdate(id, req.body, {
+    const data = await Model.findByIdAndUpdate(id, req.body, {
       new: true,
     });
     res.json({ message: "Record Updated", Status: true, data });
