@@ -18,6 +18,7 @@ const Model = require("../model/model");
 const GetRecords = async (req, res) => {
   try {
     await connect;
+    console.log("eweew");
     const records = await Model.find();
     res.json(records);
   } catch (error) {
