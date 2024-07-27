@@ -1,4 +1,5 @@
 // const { default: app } = require("../config/firebase");
+// const connect = require("../database/db");
 const Model = require("../model/model");
 // const { initializeApp } = require("firebase/app")
 // const { getStorage,ref,getDownloadURL,uploadBytesResumable } = require('firebase/storage')
@@ -16,6 +17,7 @@ const Model = require("../model/model");
 
 const GetRecords = async (req, res) => {
   try {
+    // await connect;
     const records = await Model.find();
     res.json(records);
   } catch (error) {
