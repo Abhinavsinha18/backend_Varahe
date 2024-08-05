@@ -9,6 +9,10 @@ let schema = mongoose.Schema({
         type: String,
         required : true
     },
+    projectName:{
+        type: String,
+        required : true
+    },
 
     task : {
         type : String,
