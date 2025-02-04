@@ -55,6 +55,22 @@ app.post("/upload", upload.single("file"), async (req, res) => {
   }
 });
 
+app.get("/get-all-items", async (req, res) => {
+  try {
+    // Retrieve all data from the model
+    const items = await model.find(); // Assuming your model is named 'model'
+
+    if (!items || items.length === 0) {
+      return res.status(404).json({ message: "No data found" });
+    }
+
+    // Send the data as a JSON response
+    res.json({ message: "All items retrieved successfully", data: items });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 app.listen(Port,async()=>{
   console.log("Listing to" , Port );
