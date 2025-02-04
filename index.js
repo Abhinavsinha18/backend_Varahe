@@ -44,12 +44,17 @@ app.post("/upload", upload.single("file"), async (req, res) => {
         await model.insertMany(results); // Insert new data
         fs.unlinkSync(filePath); // Delete the file after processing
 
-        res.json({ message: "CSV data uploaded and saved successfully!" });
+        // Send the uploaded data as part of the response
+        res.json({
+          message: "CSV data uploaded and saved successfully!",
+          data: results, // Send the uploaded data in the response
+        });
       });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
+
 
 app.listen(Port,async()=>{
   console.log("Listing to" , Port );
